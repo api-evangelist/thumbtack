@@ -1,0 +1,113 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Thumbtack
+providerId: thumbtack
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Local Services
+- Marketplace
+- Home Services
+- Leads
+- Plans
+description: >-
+  Thumbtack's pricing applies to the marketplace, not to a public API price
+  list (there is no self-serve API pricing page). Consumers use Thumbtack free
+  of charge to find and message pros. Pros do not pay a subscription or listing
+  fee; instead they pay per matched lead / customer opportunity ("Pay-per-Lead"),
+  with dynamic per-lead prices set weekly by category, job size, market, and
+  competition - commonly cited in the roughly $8-$150+ range depending on trade,
+  with many services falling in an approximate $18-$75 range. Pros are only
+  charged when a homeowner responds or a request is delivered, not for profile
+  views. Partner Platform access (the Demand API and Pro API) itself is
+  approval-gated and free to integrate; Thumbtack has not published a
+  per-call or subscription fee for API usage - commercial terms for
+  Supply/Demand Partner integrations are negotiated directly with Thumbtack.
+notes: >-
+  Per-lead prices are dynamic and vary by category, market, and week; no
+  official master price list is published. API/partner-integration
+  commercial terms are not published and are negotiated per partner
+  agreement; verify directly with Thumbtack Partnerships during
+  reconciliation.
+sources:
+- https://help.thumbtack.com/article/pay-for-leads
+- https://help.thumbtack.com/article/set-lead-prices
+- https://developers.thumbtack.com/
+- https://press.thumbtack.com/announcements/thumbtack-launches-new-pro-api-to-help-service-professionals-grow-sustainably/
+plans:
+- id: thumbtack-consumer-free
+  name: Consumer (Homeowner)
+  type: free
+  description: >-
+    Browsing, searching for pros, and messaging/booking through Thumbtack
+    is free for consumers. No subscription or per-request fee.
+  entries:
+  - label: Consumer Access
+    name: consumer_access
+    type: flat
+    metric: account
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: Pro Search
+  - name: Project Requests
+  - name: Messaging
+  - name: Reviews
+- id: thumbtack-pro-pay-per-lead
+  name: Pro - Pay-per-Lead
+  type: usage
+  description: >-
+    Service professionals pay only for matched leads / customer
+    opportunities they receive or respond to. No mandatory sign-up or
+    annual fee. Per-lead price is dynamic, set weekly per category,
+    job size, market, and competition.
+  entries:
+  - label: Lead / Opportunity Price
+    name: lead_price
+    type: usage
+    metric: leads
+    limit: -1
+    timeFrame: month
+    geo: US/CA
+    unit: 1
+    price: dynamic, roughly $8-$150+ per lead depending on trade and market (see provider help center)
+    userMultiplied: false
+  elements:
+  - name: Business Profile
+  - name: Instant Match / Targeted Leads
+  - name: Messaging with Customers
+  - name: Reviews
+- id: thumbtack-partner-integration
+  name: Partner Platform Integration
+  type: enterprise
+  description: >-
+    Demand Partner (marketplace) and Supply Partner (pro-tools) integrations
+    with the Thumbtack API require approval via the developer portal's
+    "Request Access" flow. No published self-serve price list; commercial
+    terms (revenue share, referral fee, or flat agreement) are negotiated
+    directly with Thumbtack per partnership.
+  entries:
+  - label: Partner Agreement
+    name: partner_agreement
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: negotiated with Thumbtack Partnerships
+    userMultiplied: false
+  elements:
+  - name: Demand API Access
+  - name: Pro API Access
+  - name: Embeddable Widgets
+  - name: OAuth 2.0 Credentials
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

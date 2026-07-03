@@ -1,0 +1,63 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Thumbtack
+providerId: thumbtack
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Local Services
+- Marketplace
+- Home Services
+- Leads
+- Rate Limiting
+- Quotas
+description: >-
+  Thumbtack's Demand API documents a fixed numeric rate limit of 360 requests
+  per minute per partner. The Pro API's published reference does not state a
+  numeric per-minute or per-day cap; partner-facing docs describe OAuth 2.0
+  token expiry/refresh but not a request-rate ceiling. Both APIs are
+  approval-gated - Thumbtack can additionally throttle or revoke a partner's
+  access as part of its partnership terms, independent of any published
+  numeric limit.
+notes: >-
+  Only the Demand API's 360 req/min figure is explicitly documented in the
+  fetched reference pages. Verify current Pro API limits directly with
+  Thumbtack Partnerships/API support during reconciliation, since access is
+  not self-serve and limits may be set per partner agreement.
+sources:
+- https://api.thumbtack.com/docs/demand_api.html
+- https://pro-api.thumbtack.com/docs/
+- https://developers.thumbtack.com/
+responseCodes:
+  throttled: 429
+limits:
+- name: Demand API Requests
+  scope: partner
+  metric: requests
+  limit: 360 per minute
+  notes: Documented fixed rate limit for the Demand API (api.thumbtack.com).
+- name: Pro API Requests
+  scope: partner
+  metric: requests
+  limit: not published
+  notes: No numeric per-minute or per-day cap is documented for the Pro API (pro-api.thumbtack.com) in the fetched reference.
+- name: OAuth Access Token Lifetime
+  scope: partner
+  metric: tokens
+  limit: time-bound (expires; refresh required)
+  notes: Access tokens obtained via /v2/tokens/access must be refreshed using a refresh token per the documented OAuth 2.0 flow.
+- name: Partner Approval Gate
+  scope: account
+  metric: access
+  limit: approval required
+  notes: All API access (Demand and Pro) requires Thumbtack to approve the partner and issue credentials; there is no public self-serve tier.
+policies:
+- name: Approval-Gated Access
+  description: Both the Docs and API Reference sections require clicking "Request Access"; Thumbtack reviews and approves partners before issuing OAuth 2.0 credentials.
+- name: Basic Auth Legacy Routes
+  description: Older v1/v2 Demand API routes and v1 Pro API routes use HTTP Basic authentication rather than OAuth 2.0.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,93 @@
+aid: thumbtack
+url: https://raw.githubusercontent.com/api-evangelist/thumbtack/refs/heads/main/apis.yml
+name: Thumbtack
+kind: company
+description: Thumbtack is a local services marketplace connecting homeowners with
+  local service professionals (cleaning, home improvement, events, wellness, and
+  more). There is no self-serve public API - Thumbtack operates an approval-gated
+  Partner Platform (developers.thumbtack.com) with two documented API surfaces -
+  a Demand API for marketplace integrations (pro search, categories, autocomplete,
+  requests) and a Pro API for supply-side integrations (leads, messages, pro
+  profiles, reviews) - plus low-code embeddable widgets. Access requires Thumbtack
+  to approve a partner and issue OAuth 2.0 credentials; there is no public signup
+  or API key self-service.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Local Services
+- Marketplace
+- Home Services
+- Leads
+- Partner API
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: thumbtack:thumbtack-demand-api
+  name: Thumbtack Demand API
+  tags:
+  - Marketplace
+  - Pros
+  - Categories
+  - Requests
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
+  properties:
+  - url: https://developers.thumbtack.com/docs/overview
+    type: Documentation
+  - url: https://developers.thumbtack.com/api-reference
+    type: APIReference
+  - url: https://api.thumbtack.com/docs/demand_api.html
+    type: APIReference
+  - url: openapi/thumbtack-demand-openapi.yml
+    type: OpenAPI
+  description: Marketplace-side ("Demand Partner") integration surface for helping
+    customers find pros, explore service categories, and submit project requests -
+    pro search by zip code/category, filtered pro matching, autocomplete, homecare
+    checklists, category recommendations, and on-demand order management. v1/v2
+    routes use HTTP Basic auth; v4 routes use OAuth 2.0. Approval required; access
+    is granted by Thumbtack after a partner application, not self-serve.
+- aid: thumbtack:thumbtack-pro-api
+  name: Thumbtack Pro API
+  tags:
+  - Leads
+  - Messages
+  - Pro Profiles
+  - Reviews
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://pro-api.thumbtack.com
+  properties:
+  - url: https://developers.thumbtack.com/docs/overview
+    type: Documentation
+  - url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+    type: Documentation
+  - url: https://pro-api.thumbtack.com/docs/
+    type: APIReference
+  - url: openapi/thumbtack-pro-openapi.yml
+    type: OpenAPI
+  description: Supply-side ("Supply Partner") integration surface launched 2021
+    (first partner GoSite) letting business-workflow platforms manage a pro's
+    Thumbtack leads and messages alongside their other customer communications -
+    two-way lead messaging, business profile and targeting-preference management,
+    review notifications, business phone numbers for call attribution, and job
+    status signals. Thumbtack calls partner-implemented webhook-style endpoints
+    (lead, message, lead update, review) and partners call Thumbtack's OAuth
+    2.0-protected endpoints with a bearer token obtained via the
+    partner-connect authorization code flow. Approval required.
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/thumbtack-inc.
+- type: Website
+  url: https://www.thumbtack.com
+- type: Documentation
+  url: https://developers.thumbtack.com/
+- type: Plans
+  url: plans/thumbtack-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/thumbtack-rate-limits.yml
+- type: FinOps
+  url: finops/thumbtack-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

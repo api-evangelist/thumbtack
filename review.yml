@@ -1,0 +1,123 @@
+aid: thumbtack
+name: Thumbtack
+review:
+  question: Does Thumbtack expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Thumbtack's Partner Platform (both the
+    Demand API and the Pro API) is documented purely as request/response REST
+    over HTTPS. "Real-time" lead and message delivery on the Pro API is
+    implemented as Thumbtack calling partner-implemented webhook endpoints
+    (POST /v1/lead, POST /v1/message, PUT /v1/lead/update, POST /v1/review) at
+    the partner's own domain - server-to-server HTTP push, not a
+    subscribe/publish WebSocket channel. There is no server-push transport on
+    Thumbtack's own API surface to model as AsyncAPI.
+findings:
+  summary: |
+    Thumbtack does not publish a documented public WebSocket API, and it does
+    not offer a self-serve public API at all. Thumbtack's Partner Platform
+    (developers.thumbtack.com) is an approval-gated integration surface with
+    two logical APIs: a Demand API (api.thumbtack.com) for marketplace
+    integrations - pro search, categories, autocomplete, project requests,
+    on-demand orders - and a Pro API (pro-api.thumbtack.com) for supply-side
+    integrations - leads, two-way messaging, pro profiles, reviews, business
+    phone numbers, job status signals. Both are documented as plain
+    request/response REST over HTTPS. Older v1/v2 Demand API routes use HTTP
+    Basic authentication; v4 Demand API routes and all Pro API v2/v3 routes
+    use OAuth 2.0 (authorization code and client credentials flows, bearer
+    tokens). "Real-time" delivery of leads, messages, and reviews to a
+    partner is implemented as Thumbtack POSTing to partner-hosted webhook
+    endpoints, not as a WebSocket push channel exposed by Thumbtack. No
+    ws:// or wss:// endpoint is documented anywhere in the Partner Platform
+    docs or API reference as of the review date.
+  accessModel: |
+    There is no public signup or self-service API key flow. A prominent
+    "Request Access" call to action gates both the Docs and API Reference
+    sections of developers.thumbtack.com; Thumbtack reviews and approves
+    partners before issuing OAuth 2.0 client credentials in the production
+    environment. This is a B2B partner-integration API, not a consumer or
+    indie-developer public API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.thumbtack.com
+      documented: true
+      note: Demand API. v1/v2 routes use HTTP Basic auth; v4 routes use OAuth 2.0 (authorization code and client credentials).
+    - protocol: REST
+      scheme: https
+      baseURL: https://pro-api.thumbtack.com
+      documented: true
+      note: Pro API. v1 routes use HTTP Basic auth; v2/v3 routes use OAuth 2.0 bearer tokens.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Thumbtack POSTs leads, messages, lead updates, and reviews to partner-hosted endpoints (POST /v1/lead, POST /v1/message, PUT /v1/lead/update, POST /v1/review). Server-to-server HTTP push, not WebSocket.
+    - protocol: Widget/iframe
+      scheme: https
+      documented: true
+      note: Low-code embeddable widgets (pro search, request flow, service page) rendered via iframe on partner sites; not an API transport.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the Partner Platform docs or API reference as of the review date.
+  endpointsConfirmedRest:
+    - GET   https://api.thumbtack.com/v2/autocomplete
+    - GET   https://api.thumbtack.com/v2/pros
+    - POST  https://api.thumbtack.com/v2/filtered-pros
+    - GET   https://api.thumbtack.com/v2/homecare/checklist
+    - GET   https://api.thumbtack.com/v2/category/recommendation
+    - POST  https://pro-api.thumbtack.com/v2/tokens/access
+    - POST  https://pro-api.thumbtack.com/v2/business/{businessID}/lead/{leadID}/message
+    - GET   https://pro-api.thumbtack.com/v2/get-thumbtack-info
+    - POST  https://pro-api.thumbtack.com/v2/disconnect-partner
+    - PATCH https://pro-api.thumbtack.com/v3/accounts/{accountID}/services/{serviceID}/preferences/targeting
+    - PATCH https://pro-api.thumbtack.com/v3/accounts/{accountID}/services/{serviceID}/categories/{categoryID}/preferences/targeting
+    - POST  https://pro-api.thumbtack.com/v1/test/create-lead
+  endpointsPartnerImplemented:
+    - POST https://partner.example.com/v1/lead
+    - POST https://partner.example.com/v1/message
+    - PUT  https://partner.example.com/v1/lead/update
+    - POST https://partner.example.com/v1/review
+  endpointsModeled: true
+  endpointsModeledNote: |
+    Paths and methods above are transcribed from Thumbtack's own published
+    developer documentation and API reference pages (sources below), not
+    invented. Full request/response schemas were not published in the
+    fetched pages, so the accompanying OpenAPI documents describe the
+    confirmed operations at a summary level rather than fabricating
+    complete field-level schemas.
+sources:
+  - url: https://developers.thumbtack.com/
+    type: Documentation
+    note: Partner Platform landing page; "Request Access" gate on Docs and API Reference confirms approval-only access.
+  - url: https://developers.thumbtack.com/docs/overview
+    type: Documentation
+    note: Demand Partner (marketplace) vs Supply Partner (pro) API grouping; widgets; webhooks note.
+  - url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+    type: Documentation
+    note: OAuth 2.0 authorization code flow via thumbtack.com/services/partner-connect/.
+  - url: https://api.thumbtack.com/docs/demand_api.html
+    type: APIReference
+    note: Demand API base URLs, v1/v2 Basic auth vs v4 OAuth 2.0, 360 requests/minute rate limit, pros/autocomplete/categories/orders endpoints.
+  - url: https://pro-api.thumbtack.com/docs/
+    type: APIReference
+    note: Pro API base URLs, token exchange, lead messaging, targeting preferences, and partner-implemented webhook endpoints.
+  - url: https://press.thumbtack.com/announcements/thumbtack-launches-new-pro-api-to-help-service-professionals-grow-sustainably/
+    type: Documentation
+    note: 2021 launch announcement of the Pro API with inaugural partner GoSite; no WebSocket mentioned.
+  - url: https://help.thumbtack.com/article/pay-for-leads
+    type: Documentation
+    note: Consumer-facing explanation of lead-based pricing for pros.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on either Thumbtack API. Both the
+    Demand API and the Pro API are documented as request/response REST over
+    HTTPS, and Pro API "real-time" delivery is a server-to-server webhook
+    push to partner-hosted endpoints, not a WebSocket channel. No AsyncAPI
+    document was created because there is no server-push transport owned by
+    Thumbtack itself to model.

@@ -1,0 +1,86 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Thumbtack
+providerId: thumbtack
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Local Services
+- Marketplace
+- Home Services
+- Leads
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Thumbtack spend is marketplace spend, not API-usage spend -
+  Thumbtack has not published per-call or subscription pricing for its
+  approval-gated Partner Platform. The dominant, quantified cost center is a
+  pro's lead spend: pros pay per matched lead / customer opportunity at a
+  dynamic price set weekly by category, job size, market, and competition
+  (commonly cited in the roughly $8-$150+ per-lead range). Consumers incur no
+  charge. Partner Platform integration costs (Demand API / Pro API) are
+  negotiated per partnership agreement and are not published.
+notes: >-
+  No FOCUS-aligned unit pricing is published by Thumbtack for API consumption
+  itself; the meters below track the marketplace lead spend that pros
+  actually pay, since that is the only quantified cost Thumbtack discloses.
+  Reconcile partner-agreement commercial terms directly with Thumbtack.
+sources:
+- https://help.thumbtack.com/article/pay-for-leads
+- https://help.thumbtack.com/article/set-lead-prices
+- https://developers.thumbtack.com/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Thumbtack
+serviceCategory: Local Services Marketplace
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: On-Demand
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Thumbtack Pro Leads
+  ServiceCategory: Local Services Marketplace
+  ProviderName: Thumbtack
+  PublisherName: Thumbtack
+  InvoiceIssuerName: Thumbtack
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: lead_charge
+  description: Per-lead / per-opportunity charge to a pro when a homeowner responds or a request is delivered. Dynamic price set weekly by category, size, and market.
+  unit: leads
+  aggregation: sum
+  dimensions:
+  - pro_account
+  - category
+  - market
+- name: partner_integration_fee
+  description: Unpublished, negotiated commercial terms for Demand/Supply Partner API integrations (revenue share, referral fee, or flat agreement).
+  unit: contracts
+  aggregation: sum
+  dimensions:
+  - partner_account
+principles:
+- name: Visibility
+  description: Pros can track per-lead charges in the Thumbtack app/dashboard; there is no published API-usage cost dashboard since API access is not metered publicly.
+- name: Allocation
+  description: Attribute lead spend to category/market/campaign so marketing spend maps to job categories and franchise/business units.
+- name: Optimization
+  description: Set target lead budgets and category/targeting preferences (the Pro API's targeting-preferences endpoints) to control which leads a pro is charged for.
+- name: Accountability
+  description: Assign an owner for lead-budget review per category/market; partner integrations should have a named commercial owner for the Thumbtack agreement.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
