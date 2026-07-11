@@ -1,0 +1,41 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/thumbtack-demand-openapi.yml, openapi/thumbtack-pro-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: Used by legacy v1/v2 routes.
+  sources:
+  - openapi/thumbtack-demand-openapi.yml
+  - openapi/thumbtack-pro-openapi.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.thumbtack.com/services/partner-connect/
+    tokenUrl: https://api.thumbtack.com/v4/oauth/token
+    scopes: 0
+  - flow: clientCredentials
+    tokenUrl: https://api.thumbtack.com/v4/oauth/token
+    scopes: 0
+  description: Used by v4 routes. Authorization Code and Client Credentials flows.
+  sources:
+  - openapi/thumbtack-demand-openapi.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.thumbtack.com/services/partner-connect/
+    tokenUrl: https://pro-api.thumbtack.com/v2/tokens/access
+    scopes: 0
+  description: Bearer token obtained via the partner-connect authorization code flow.
+  sources:
+  - openapi/thumbtack-pro-openapi.yml

@@ -76,6 +76,10 @@ apis:
     2.0-protected endpoints with a bearer token obtained via the
     partner-connect authorization code flow. Approval required.
 common:
+- type: VulnerabilityDisclosure
+  url: security/thumbtack-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/thumbtack-domain-security.yml
 - type: Authentication
   url: authentication/thumbtack-authentication.yml
 - type: OAuthScopes
