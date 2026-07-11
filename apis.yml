@@ -76,6 +76,10 @@ apis:
     2.0-protected endpoints with a bearer token obtained via the
     partner-connect authorization code flow. Approval required.
 common:
+- type: Authentication
+  url: authentication/thumbtack-authentication.yml
+- type: OAuthScopes
+  url: scopes/thumbtack-scopes.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/thumbtack-inc.
 - type: Website
@@ -88,6 +92,8 @@ common:
   url: rate-limits/thumbtack-rate-limits.yml
 - type: FinOps
   url: finops/thumbtack-finops.yml
+- url: https://thumbtack.com/blog/feed/
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

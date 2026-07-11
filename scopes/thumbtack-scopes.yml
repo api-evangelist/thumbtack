@@ -1,0 +1,120 @@
+generated: '2026-07-11'
+method: searched
+source: openapi/thumbtack-demand-openapi.yml, openapi/thumbtack-pro-openapi.yml
+docs: https://developers.thumbtack.com/docs/getting-started/authentication
+schemes:
+- name: oauth2
+  source: openapi/thumbtack-demand-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.thumbtack.com/services/partner-connect/
+    tokenUrl: https://api.thumbtack.com/v4/oauth/token
+  - flow: clientCredentials
+    tokenUrl: https://api.thumbtack.com/v4/oauth/token
+  description: Used by v4 routes. Authorization Code and Client Credentials flows.
+- name: oauth2
+  source: openapi/thumbtack-pro-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.thumbtack.com/services/partner-connect/
+    tokenUrl: https://pro-api.thumbtack.com/v2/tokens/access
+  description: Bearer token obtained via the partner-connect authorization code flow.
+scopes:
+- scope: demand::messages.read
+  description: Read access to messages (Demand API v4, authorization code flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::messages.write
+  description: Write access to messages (Demand API v4, authorization code flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::negotiations.read
+  description: Read access to negotiations (Demand API v4, authorization code flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::users.read
+  description: Read access to user information (Demand API v4, authorization code
+    flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::users.disconnect
+  description: Disconnect access to user and revoke tokens (Demand API v4, authorization
+    code flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::webhooks.read
+  description: Read access to user webhooks (Demand API v4, authorization code flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::webhooks.write
+  description: Write access to user webhooks (Demand API v4, authorization code flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::orders.read
+  description: Read access to on-demand orders (Demand API v4, client credentials
+    flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::orders.write
+  description: Write access to on-demand orders (Demand API v4, client credentials
+    flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::orders/availability.read
+  description: Read access to supply availability for on-demand orders (Demand API
+    v4, client credentials flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::categories.read
+  description: Read access to categories (Demand API v4, client credentials flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: demand::keywords.read
+  description: Read access to keywords (Demand API v4, client credentials flow).
+  sources:
+  - https://api.thumbtack.com/docs/demand_api.html
+- scope: messages
+  description: Pro API scope allowing partners to send messages on behalf of pros
+    to customers for given leads via the Messages endpoints.
+  sources:
+  - https://pro-api.thumbtack.com/docs/
+- scope: availability
+  description: Pro API scope for accessing pro availability functionality.
+  sources:
+  - https://pro-api.thumbtack.com/docs/
+- scope: bookings
+  description: Pro API scope for accessing bookings functionality.
+  sources:
+  - https://pro-api.thumbtack.com/docs/
+- scope: targeting
+  description: Pro API scope for managing a pro's targeting preferences for services
+    and categories (service-based and category-based targeting endpoints).
+  sources:
+  - https://pro-api.thumbtack.com/docs/
+- scope: openid
+  description: Required OpenID Connect scope; always returns sub (user ID) plus standard
+    claims (iss, aud, exp, iat, at_hash).
+  sources:
+  - https://developers.thumbtack.com/docs/getting-started/authentication
+- scope: profile
+  description: Optional OpenID Connect scope returning the user's name, given_name,
+    family_name, picture, and zoneinfo.
+  sources:
+  - https://developers.thumbtack.com/docs/getting-started/authentication
+- scope: email
+  description: Optional OpenID Connect scope returning the user's email and email_verified
+    status.
+  sources:
+  - https://developers.thumbtack.com/docs/getting-started/authentication
+- scope: phone
+  description: Optional OpenID Connect scope returning the user's phone_number.
+  sources:
+  - https://developers.thumbtack.com/docs/getting-started/authentication
+- scope: offline_access
+  description: When included in the scope list for the authorization code flow, Thumbtack's
+    authorization server issues a refresh_token alongside the access_token.
+  sources:
+  - https://developers.thumbtack.com/docs/getting-started/authentication
+note: "Clients are provisioned either purely demand:: or purely supply:: prefixed
+  scopes, never a mix; per-route required scopes are listed in the API Reference
+  (https://developers.thumbtack.com/docs/getting-started/authentication)."
