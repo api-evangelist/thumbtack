@@ -1,0 +1,102 @@
+openapi: 3.0.1
+info:
+  title: Thumbtack Demand Authentication Categories API
+  description: 'Marketplace ("Demand Partner") integration surface of the Thumbtack Partner Platform, for helping customers find pros, explore service categories, and submit project requests. Access is approval-gated - Thumbtack issues credentials to accepted partners; there is no public self-serve signup. Paths and methods below are transcribed from Thumbtack''s published API reference at api.thumbtack.com/docs and developers.thumbtack.com. Full request/response field schemas were not published in the sourced pages, so this document models confirmed operations at a summary level rather than fabricating complete schemas. Autocomplete, Pros, and Categories paths are verbatim-confirmed from the source reference. Orders paths are honestly modeled (x-endpointsModeled: true) from the reference''s prose description of "order management endpoints for on-demand services (create, update, cancel, retrieve status)", which did not itself publish exact path strings.'
+  termsOfService: https://www.thumbtack.com/terms
+  contact:
+    name: Thumbtack Partner Platform
+    url: https://developers.thumbtack.com/
+  version: 4.0.0-draft
+servers:
+- url: https://api.thumbtack.com
+  description: Production
+- url: https://staging-api.thumbtack.com
+  description: Staging
+security:
+- basicAuth: []
+- oauth2: []
+tags:
+- name: Categories
+paths:
+  /v2/homecare/checklist:
+    get:
+      operationId: getHomecareChecklist
+      tags:
+      - Categories
+      summary: Retrieve homecare tasks and categories by property type and zip code
+      security:
+      - basicAuth: []
+      parameters:
+      - name: property_type
+        in: query
+        schema:
+          type: string
+      - name: zip_code
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Homecare checklist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChecklistResponse'
+  /v2/category/recommendation:
+    get:
+      operationId: getCategoryRecommendation
+      tags:
+      - Categories
+      summary: Get recommended service categories for a given zip code
+      security:
+      - basicAuth: []
+      parameters:
+      - name: zip_code
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Recommended categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryRecommendationResponse'
+components:
+  schemas:
+    CategoryRecommendationResponse:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        categories:
+          type: array
+          items:
+            type: object
+    ChecklistResponse:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        tasks:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Used by legacy v1/v2 routes.
+    oauth2:
+      type: oauth2
+      description: Used by v4 routes. Authorization Code and Client Credentials flows.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.thumbtack.com/services/partner-connect/
+          tokenUrl: https://api.thumbtack.com/v4/oauth/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: https://api.thumbtack.com/v4/oauth/token
+          scopes: {}
+externalDocs:
+  description: Thumbtack Demand API reference
+  url: https://api.thumbtack.com/docs/demand_api.html

@@ -1,0 +1,162 @@
+openapi: 3.0.1
+info:
+  title: Thumbtack Demand Authentication Orders API
+  description: 'Marketplace ("Demand Partner") integration surface of the Thumbtack Partner Platform, for helping customers find pros, explore service categories, and submit project requests. Access is approval-gated - Thumbtack issues credentials to accepted partners; there is no public self-serve signup. Paths and methods below are transcribed from Thumbtack''s published API reference at api.thumbtack.com/docs and developers.thumbtack.com. Full request/response field schemas were not published in the sourced pages, so this document models confirmed operations at a summary level rather than fabricating complete schemas. Autocomplete, Pros, and Categories paths are verbatim-confirmed from the source reference. Orders paths are honestly modeled (x-endpointsModeled: true) from the reference''s prose description of "order management endpoints for on-demand services (create, update, cancel, retrieve status)", which did not itself publish exact path strings.'
+  termsOfService: https://www.thumbtack.com/terms
+  contact:
+    name: Thumbtack Partner Platform
+    url: https://developers.thumbtack.com/
+  version: 4.0.0-draft
+servers:
+- url: https://api.thumbtack.com
+  description: Production
+- url: https://staging-api.thumbtack.com
+  description: Staging
+security:
+- basicAuth: []
+- oauth2: []
+tags:
+- name: Orders
+paths:
+  /v4/orders:
+    post:
+      operationId: createOrder
+      x-endpointsModeled: true
+      tags:
+      - Orders
+      summary: Create an on-demand service order (v4, OAuth 2.0)
+      security:
+      - oauth2: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '201':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+    get:
+      operationId: listOrders
+      x-endpointsModeled: true
+      tags:
+      - Orders
+      summary: List on-demand service orders (v4, OAuth 2.0)
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+  /v4/orders/{orderId}:
+    get:
+      operationId: getOrder
+      x-endpointsModeled: true
+      tags:
+      - Orders
+      summary: Retrieve the status of an on-demand service order
+      security:
+      - oauth2: []
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Order detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+    patch:
+      operationId: updateOrder
+      x-endpointsModeled: true
+      tags:
+      - Orders
+      summary: Update an on-demand service order
+      security:
+      - oauth2: []
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Order updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+    delete:
+      operationId: cancelOrder
+      x-endpointsModeled: true
+      tags:
+      - Orders
+      summary: Cancel an on-demand service order
+      security:
+      - oauth2: []
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Order canceled
+components:
+  schemas:
+    OrderRequest:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        category_id:
+          type: string
+        zip_code:
+          type: string
+    OrderResponse:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        order_id:
+          type: string
+        status:
+          type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Used by legacy v1/v2 routes.
+    oauth2:
+      type: oauth2
+      description: Used by v4 routes. Authorization Code and Client Credentials flows.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.thumbtack.com/services/partner-connect/
+          tokenUrl: https://api.thumbtack.com/v4/oauth/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: https://api.thumbtack.com/v4/oauth/token
+          scopes: {}
+externalDocs:
+  description: Thumbtack Demand API reference
+  url: https://api.thumbtack.com/docs/demand_api.html
