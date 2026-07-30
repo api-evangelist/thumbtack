@@ -11,7 +11,20 @@ description: Thumbtack is a local services marketplace connecting homeowners wit
   profiles, reviews) - plus low-code embeddable widgets. Access requires Thumbtack
   to approve a partner and issue OAuth 2.0 credentials; there is no public signup
   or API key self-service.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/thumbtack.png
 tags:
 - Local Services
 - Marketplace
@@ -22,59 +35,206 @@ created: '2026-07-03'
 modified: '2026-07-03'
 specificationVersion: '0.19'
 apis:
-- aid: thumbtack:thumbtack-demand-api
-  name: Thumbtack Demand API
-  tags:
-  - Marketplace
-  - Pros
-  - Categories
-  - Requests
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: thumbtack:thumbtack-authentication-api
+  name: Thumbtack Authentication API
+  description: The Authentication API from Thumbtack — 1 operation(s) for authentication.
   humanURL: https://developers.thumbtack.com/docs/overview
   baseURL: https://api.thumbtack.com
+  tags:
+  - Authentication
   properties:
-  - url: https://developers.thumbtack.com/docs/overview
-    type: Documentation
-  - url: https://developers.thumbtack.com/api-reference
-    type: APIReference
-  - url: https://api.thumbtack.com/docs/demand_api.html
-    type: APIReference
-  - url: openapi/thumbtack-demand-openapi.yml
-    type: OpenAPI
-  description: Marketplace-side ("Demand Partner") integration surface for helping
-    customers find pros, explore service categories, and submit project requests -
-    pro search by zip code/category, filtered pro matching, autocomplete, homecare
-    checklists, category recommendations, and on-demand order management. v1/v2
-    routes use HTTP Basic auth; v4 routes use OAuth 2.0. Approval required; access
-    is granted by Thumbtack after a partner application, not self-serve.
-- aid: thumbtack:thumbtack-pro-api
-  name: Thumbtack Pro API
+  - type: OpenAPI
+    url: openapi/thumbtack-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
+- aid: thumbtack:thumbtack-autocomplete-api
+  name: Thumbtack Autocomplete API
+  description: The Autocomplete API from Thumbtack — 1 operation(s) for autocomplete.
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
+  tags:
+  - Autocomplete
+  properties:
+  - type: OpenAPI
+    url: openapi/thumbtack-autocomplete-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
+- aid: thumbtack:thumbtack-categories-api
+  name: Thumbtack Categories API
+  description: The Categories API from Thumbtack — 2 operation(s) for categories.
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/thumbtack-categories-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
+- aid: thumbtack:thumbtack-leads-api
+  name: Thumbtack Leads API
+  description: The Leads API from Thumbtack — 2 operation(s) for leads.
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
   tags:
   - Leads
-  - Messages
-  - Pro Profiles
-  - Reviews
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.thumbtack.com/docs/overview
-  baseURL: https://pro-api.thumbtack.com
   properties:
-  - url: https://developers.thumbtack.com/docs/overview
-    type: Documentation
-  - url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
-    type: Documentation
-  - url: https://pro-api.thumbtack.com/docs/
-    type: APIReference
-  - url: openapi/thumbtack-pro-openapi.yml
-    type: OpenAPI
-  description: Supply-side ("Supply Partner") integration surface launched 2021
-    (first partner GoSite) letting business-workflow platforms manage a pro's
-    Thumbtack leads and messages alongside their other customer communications -
-    two-way lead messaging, business profile and targeting-preference management,
-    review notifications, business phone numbers for call attribution, and job
-    status signals. Thumbtack calls partner-implemented webhook-style endpoints
-    (lead, message, lead update, review) and partners call Thumbtack's OAuth
-    2.0-protected endpoints with a bearer token obtained via the
-    partner-connect authorization code flow. Approval required.
+  - type: OpenAPI
+    url: openapi/thumbtack-leads-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
+- aid: thumbtack:thumbtack-messages-api
+  name: Thumbtack Messages API
+  description: The Messages API from Thumbtack — 2 operation(s) for messages.
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/thumbtack-messages-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
+- aid: thumbtack:thumbtack-orders-api
+  name: Thumbtack Orders API
+  description: The Orders API from Thumbtack — 2 operation(s) for orders.
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/thumbtack-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
+- aid: thumbtack:thumbtack-pro-profiles-api
+  name: Thumbtack Pro Profiles API
+  description: The Pro Profiles API from Thumbtack — 4 operation(s) for pro profiles.
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
+  tags:
+  - Pro Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/thumbtack-pro-profiles-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
+- aid: thumbtack:thumbtack-pros-api
+  name: Thumbtack Pros API
+  description: The Pros API from Thumbtack — 2 operation(s) for pros.
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
+  tags:
+  - Pros
+  properties:
+  - type: OpenAPI
+    url: openapi/thumbtack-pros-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
+- aid: thumbtack:thumbtack-reviews-api
+  name: Thumbtack Reviews API
+  description: The Reviews API from Thumbtack — 1 operation(s) for reviews.
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/thumbtack-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
+- aid: thumbtack:thumbtack-testing-api
+  name: Thumbtack Testing API
+  description: The Testing API from Thumbtack — 1 operation(s) for testing.
+  humanURL: https://developers.thumbtack.com/docs/overview
+  baseURL: https://api.thumbtack.com
+  tags:
+  - Testing
+  properties:
+  - type: OpenAPI
+    url: openapi/thumbtack-testing-api-openapi.yml
+  - type: Documentation
+    url: https://developers.thumbtack.com/docs/overview
+  - type: APIReference
+    url: https://developers.thumbtack.com/api-reference
+  - type: APIReference
+    url: https://api.thumbtack.com/docs/demand_api.html
+  - type: Documentation
+    url: https://developers.thumbtack.com/guides/2Hqdq7prrqyDfW2HvoPRXb
+  - type: APIReference
+    url: https://pro-api.thumbtack.com/docs/
 common:
 - type: AgenticAccess
   url: agentic-access/thumbtack-agentic-access.yml
