@@ -1,0 +1,32 @@
+{
+  "provider": "thumbtack",
+  "sources": [
+    "thumbtack-authentication-api-openapi.yml",
+    "thumbtack-autocomplete-api-openapi.yml",
+    "thumbtack-categories-api-openapi.yml",
+    "thumbtack-leads-api-openapi.yml",
+    "thumbtack-messages-api-openapi.yml",
+    "thumbtack-orders-api-openapi.yml",
+    "thumbtack-pro-profiles-api-openapi.yml",
+    "thumbtack-pros-api-openapi.yml",
+    "thumbtack-reviews-api-openapi.yml",
+    "thumbtack-testing-api-openapi.yml"
+  ],
+  "outputs": [
+    "thumbtack-authentication-api-openapi.yml",
+    "thumbtack-autocomplete-api-openapi.yml",
+    "thumbtack-categories-api-openapi.yml",
+    "thumbtack-leads-api-openapi.yml",
+    "thumbtack-messages-api-openapi.yml",
+    "thumbtack-orders-api-openapi.yml",
+    "thumbtack-pro-profiles-api-openapi.yml",
+    "thumbtack-pros-api-openapi.yml",
+    "thumbtack-reviews-api-openapi.yml",
+    "thumbtack-testing-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

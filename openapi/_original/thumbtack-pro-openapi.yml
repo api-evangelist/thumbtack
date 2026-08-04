@@ -1,0 +1,347 @@
+openapi: 3.0.1
+info:
+  title: Thumbtack Pro API
+  description: >-
+    Supply-side ("Supply Partner") integration surface of the Thumbtack
+    Partner Platform, letting business-workflow platforms manage a pro's
+    Thumbtack leads and messages alongside their other customer
+    communications. Launched 2021 with inaugural partner GoSite. Access is
+    approval-gated - Thumbtack issues OAuth 2.0 credentials to accepted
+    partners; there is no public self-serve signup. All paths, methods, and
+    the OAuth 2.0 authorization-code flow below are transcribed from
+    Thumbtack's published API reference at pro-api.thumbtack.com/docs and
+    developers.thumbtack.com. Full request/response field schemas were not
+    published in the sourced pages, so this document models confirmed
+    operations at a summary level rather than fabricating complete schemas.
+    This spec covers two directions - "Thumbtack endpoints" called by the
+    partner, and "Partner endpoints" that Thumbtack calls at the partner's
+    own domain (documented here as x-partner-implemented webhook-style
+    operations for completeness).
+  termsOfService: https://www.thumbtack.com/terms
+  contact:
+    name: Thumbtack Partner Platform
+    url: https://developers.thumbtack.com/
+  version: '2.0'
+externalDocs:
+  description: Thumbtack Pro API reference
+  url: https://pro-api.thumbtack.com/docs/
+servers:
+  - url: https://pro-api.thumbtack.com
+    description: Production
+  - url: https://staging-pro-api.thumbtack.com
+    description: Staging
+security:
+  - oauth2: []
+paths:
+  /v2/tokens/access:
+    post:
+      operationId: exchangeToken
+      tags:
+        - Authentication
+      summary: Exchange an authorization code or refresh token for an access token
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  enum: [authorization_code, refresh_token]
+                code:
+                  type: string
+                refresh_token:
+                  type: string
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+      responses:
+        '200':
+          description: Access token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+  /v2/business/{businessID}/lead/{leadID}/message:
+    post:
+      operationId: sendLeadMessage
+      tags:
+        - Messages
+      summary: Send a message to a customer within a lead's conversation
+      security:
+        - oauth2: []
+      parameters:
+        - name: businessID
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: leadID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageRequest'
+      responses:
+        '200':
+          description: Message sent
+  /v2/get-thumbtack-info:
+    get:
+      operationId: getThumbtackInfo
+      tags:
+        - Pro Profiles
+      summary: Retrieve Thumbtack account/profile info for the connected pro
+      security:
+        - oauth2: []
+      responses:
+        '200':
+          description: Thumbtack account info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThumbtackInfoResponse'
+  /v2/disconnect-partner:
+    post:
+      operationId: disconnectPartner
+      tags:
+        - Pro Profiles
+      summary: Disconnect a partner integration from a pro's Thumbtack account
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Partner disconnected
+  /v3/accounts/{accountID}/services/{serviceID}/preferences/targeting:
+    patch:
+      operationId: updateServiceTargetingPreferences
+      tags:
+        - Pro Profiles
+      summary: Update lead-targeting preferences for a pro's service
+      security:
+        - oauth2: []
+      parameters:
+        - name: accountID
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: serviceID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetingPreferencesRequest'
+      responses:
+        '200':
+          description: Targeting preferences updated
+  /v3/accounts/{accountID}/services/{serviceID}/categories/{categoryID}/preferences/targeting:
+    patch:
+      operationId: updateCategoryTargetingPreferences
+      tags:
+        - Pro Profiles
+      summary: Update lead-targeting preferences for a pro's service category
+      security:
+        - oauth2: []
+      parameters:
+        - name: accountID
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: serviceID
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: categoryID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetingPreferencesRequest'
+      responses:
+        '200':
+          description: Category targeting preferences updated
+  /v1/test/create-lead:
+    post:
+      operationId: createTestLead
+      tags:
+        - Testing
+      summary: Generate a synthetic test lead in the staging environment
+      security:
+        - basicAuth: []
+      responses:
+        '201':
+          description: Test lead created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadWebhookPayload'
+  /v1/lead:
+    post:
+      operationId: receiveLead
+      tags:
+        - Leads
+      summary: (Partner-implemented) Receive a new lead notification from Thumbtack
+      x-partner-implemented: true
+      x-endpointsModeled: true
+      description: >-
+        Implemented by the partner at the partner's own domain. Thumbtack
+        POSTs new-lead notifications to this endpoint. Path shown is the
+        documented relative path; the partner's base URL is registered with
+        Thumbtack during onboarding.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadWebhookPayload'
+      responses:
+        '200':
+          description: Lead accepted
+  /v1/message:
+    post:
+      operationId: receiveMessage
+      tags:
+        - Messages
+      summary: (Partner-implemented) Receive a new message notification from Thumbtack
+      x-partner-implemented: true
+      x-endpointsModeled: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageWebhookPayload'
+      responses:
+        '200':
+          description: Message accepted
+  /v1/lead/update:
+    put:
+      operationId: receiveLeadUpdate
+      tags:
+        - Leads
+      summary: (Partner-implemented) Receive a lead status update from Thumbtack
+      x-partner-implemented: true
+      x-endpointsModeled: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadUpdateWebhookPayload'
+      responses:
+        '200':
+          description: Lead update accepted
+  /v1/review:
+    post:
+      operationId: receiveReview
+      tags:
+        - Reviews
+      summary: (Partner-implemented) Receive a new review notification from Thumbtack
+      x-partner-implemented: true
+      x-endpointsModeled: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewWebhookPayload'
+      responses:
+        '200':
+          description: Review accepted
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Used by legacy v1/v2 routes such as disconnect-partner and test utilities.
+    oauth2:
+      type: oauth2
+      description: Bearer token obtained via the partner-connect authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.thumbtack.com/services/partner-connect/
+          tokenUrl: https://pro-api.thumbtack.com/v2/tokens/access
+          scopes: {}
+  schemas:
+    TokenResponse:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        expires_in:
+          type: integer
+        token_type:
+          type: string
+    MessageRequest:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        text:
+          type: string
+    ThumbtackInfoResponse:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        business_id:
+          type: string
+    TargetingPreferencesRequest:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        enabled:
+          type: boolean
+    LeadWebhookPayload:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        lead_id:
+          type: string
+        business_id:
+          type: string
+    MessageWebhookPayload:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        lead_id:
+          type: string
+        text:
+          type: string
+    LeadUpdateWebhookPayload:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        lead_id:
+          type: string
+        status:
+          type: string
+    ReviewWebhookPayload:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        business_id:
+          type: string
+        rating:
+          type: number
