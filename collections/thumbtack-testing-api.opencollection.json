@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thumbtack Demand Authentication Testing API",
+    "version": "4.0.0-draft"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Testing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a synthetic test lead in the staging environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.thumbtack.com/v1/test/create-lead",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Generate a synthetic test lead in the staging environment"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

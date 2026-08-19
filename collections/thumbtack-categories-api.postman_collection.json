@@ -1,0 +1,259 @@
+{
+  "item": [
+    {
+      "id": "9b6d8769-1177-47a4-9f05-5d04717cd5a8",
+      "name": "Categories",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d43f1f2f-2685-4950-b00a-74dba14e72c1",
+          "name": "Retrieve homecare tasks and categories by property type and zip code",
+          "request": {
+            "name": "Retrieve homecare tasks and categories by property type and zip code",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "homecare",
+                "checklist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "property_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "zip_code",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fb658c34-3c9b-498c-8135-ef5e4d586138",
+              "name": "Homecare checklist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "homecare",
+                    "checklist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "property_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "zip_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67a64839-b59f-44dd-a497-fa22ed69403b",
+          "name": "Get recommended service categories for a given zip code",
+          "request": {
+            "name": "Get recommended service categories for a given zip code",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "category",
+                "recommendation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "zip_code",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6b970b30-4af7-4404-8d96-8103462c6104",
+              "name": "Recommended categories",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "category",
+                    "recommendation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "zip_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.thumbtack.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e5893021-e51e-439d-8d9e-de548ae1bf3f",
+    "name": "Thumbtack Demand Authentication Categories API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Marketplace (\"Demand Partner\") integration surface of the Thumbtack Partner Platform, for helping customers find pros, explore service categories, and submit project requests. Access is approval-gated - Thumbtack issues credentials to accepted partners; there is no public self-serve signup. Paths and methods below are transcribed from Thumbtack's published API reference at api.thumbtack.com/docs and developers.thumbtack.com. Full request/response field schemas were not published in the sourced pages, so this document models confirmed operations at a summary level rather than fabricating complete schemas. Autocomplete, Pros, and Categories paths are verbatim-confirmed from the source reference. Orders paths are honestly modeled (x-endpointsModeled: true) from the reference's prose description of \"order management endpoints for on-demand services (create, update, cancel, retrieve status)\", which did not itself publish exact path strings.\n\nContact Support:\n Name: Thumbtack Partner Platform",
+      "type": "text/plain"
+    }
+  }
+}

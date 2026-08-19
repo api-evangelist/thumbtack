@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thumbtack Demand Authentication Messages API",
+    "version": "4.0.0-draft"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a message to a customer within a lead's conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.thumbtack.com/v2/business/:businessID/lead/:leadID/message",
+            "params": [
+              {
+                "name": "businessID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "leadID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.thumbtack.com/v4/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Send a message to a customer within a lead's conversation"
+        },
+        {
+          "info": {
+            "name": "(Partner-implemented) Receive a new message notification from Thumbtack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.thumbtack.com/v1/message",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "(Partner-implemented) Receive a new message notification from Thumbtack"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

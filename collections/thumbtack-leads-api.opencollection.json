@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thumbtack Demand Authentication Leads API",
+    "version": "4.0.0-draft"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Leads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "(Partner-implemented) Receive a new lead notification from Thumbtack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.thumbtack.com/v1/lead",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Implemented by the partner at the partner's own domain. Thumbtack POSTs new-lead notifications to this endpoint. Path shown is the documented relative path; the partner's base URL is registered with Thumbtack during onboarding."
+        },
+        {
+          "info": {
+            "name": "(Partner-implemented) Receive a lead status update from Thumbtack",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.thumbtack.com/v1/lead/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "(Partner-implemented) Receive a lead status update from Thumbtack"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

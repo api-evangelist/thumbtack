@@ -1,0 +1,279 @@
+{
+  "item": [
+    {
+      "id": "02743e8b-a2ac-43be-9daa-6bbb5f084654",
+      "name": "Messages",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16645212-70f0-4ca3-8c6f-f0eff3c264b2",
+          "name": "Send a message to a customer within a lead's conversation",
+          "request": {
+            "name": "Send a message to a customer within a lead's conversation",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "business",
+                ":businessID",
+                "lead",
+                ":leadID",
+                "message"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "businessID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "leadID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.thumbtack.com/v4/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.thumbtack.com/services/partner-connect/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f3ea9cb5-633d-4911-bd76-f61c320a8bb3",
+              "name": "Message sent",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "business",
+                    ":businessID",
+                    "lead",
+                    ":leadID",
+                    "message"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "leadID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82e08a03-f592-4c5d-9433-8ee1c9a32ada",
+          "name": "(Partner-implemented) Receive a new message notification from Thumbtack",
+          "request": {
+            "name": "(Partner-implemented) Receive a new message notification from Thumbtack",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "message"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lead_id\": \"<string>\",\n  \"text\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "48b9aba3-b6a2-4128-873b-b6f0300e37a3",
+              "name": "Message accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "message"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lead_id\": \"<string>\",\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.thumbtack.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9e698dc0-bae4-434e-ae2c-fb43616fd540",
+    "name": "Thumbtack Demand Authentication Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Marketplace (\"Demand Partner\") integration surface of the Thumbtack Partner Platform, for helping customers find pros, explore service categories, and submit project requests. Access is approval-gated - Thumbtack issues credentials to accepted partners; there is no public self-serve signup. Paths and methods below are transcribed from Thumbtack's published API reference at api.thumbtack.com/docs and developers.thumbtack.com. Full request/response field schemas were not published in the sourced pages, so this document models confirmed operations at a summary level rather than fabricating complete schemas. Autocomplete, Pros, and Categories paths are verbatim-confirmed from the source reference. Orders paths are honestly modeled (x-endpointsModeled: true) from the reference's prose description of \"order management endpoints for on-demand services (create, update, cancel, retrieve status)\", which did not itself publish exact path strings.\n\nContact Support:\n Name: Thumbtack Partner Platform",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thumbtack Demand Authentication Categories API",
+    "version": "4.0.0-draft"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve homecare tasks and categories by property type and zip code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.thumbtack.com/v2/homecare/checklist",
+            "params": [
+              {
+                "name": "property_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "zip_code",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieve homecare tasks and categories by property type and zip code"
+        },
+        {
+          "info": {
+            "name": "Get recommended service categories for a given zip code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.thumbtack.com/v2/category/recommendation",
+            "params": [
+              {
+                "name": "zip_code",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get recommended service categories for a given zip code"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
