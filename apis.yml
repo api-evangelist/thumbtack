@@ -121,6 +121,8 @@ apis:
   humanURL: https://developers.thumbtack.com/docs/overview
   baseURL: https://api.thumbtack.com
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -141,6 +143,8 @@ apis:
   humanURL: https://developers.thumbtack.com/docs/overview
   baseURL: https://api.thumbtack.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
