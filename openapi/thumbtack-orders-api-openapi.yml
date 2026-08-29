@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Thumbtack Demand Authentication Orders API
+  title: Thumbtack Demand Orders API
   description: 'Marketplace ("Demand Partner") integration surface of the Thumbtack Partner Platform, for helping customers find pros, explore service categories, and submit project requests. Access is approval-gated - Thumbtack issues credentials to accepted partners; there is no public self-serve signup. Paths and methods below are transcribed from Thumbtack''s published API reference at api.thumbtack.com/docs and developers.thumbtack.com. Full request/response field schemas were not published in the sourced pages, so this document models confirmed operations at a summary level rather than fabricating complete schemas. Autocomplete, Pros, and Categories paths are verbatim-confirmed from the source reference. Orders paths are honestly modeled (x-endpointsModeled: true) from the reference''s prose description of "order management endpoints for on-demand services (create, update, cancel, retrieve status)", which did not itself publish exact path strings.'
   termsOfService: https://www.thumbtack.com/terms
   contact:
@@ -125,14 +125,6 @@ paths:
           description: Order canceled
 components:
   schemas:
-    OrderRequest:
-      type: object
-      description: Schema summarized; full field list not published in sourced docs.
-      properties:
-        category_id:
-          type: string
-        zip_code:
-          type: string
     OrderResponse:
       type: object
       description: Schema summarized; full field list not published in sourced docs.
@@ -140,6 +132,14 @@ components:
         order_id:
           type: string
         status:
+          type: string
+    OrderRequest:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        category_id:
+          type: string
+        zip_code:
           type: string
   securitySchemes:
     basicAuth:

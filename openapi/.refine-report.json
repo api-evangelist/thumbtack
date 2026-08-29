@@ -1,32 +1,49 @@
 {
   "provider": "thumbtack",
   "sources": [
-    "thumbtack-authentication-api-openapi.yml",
-    "thumbtack-autocomplete-api-openapi.yml",
-    "thumbtack-categories-api-openapi.yml",
-    "thumbtack-leads-api-openapi.yml",
-    "thumbtack-messages-api-openapi.yml",
-    "thumbtack-orders-api-openapi.yml",
-    "thumbtack-pro-profiles-api-openapi.yml",
-    "thumbtack-pros-api-openapi.yml",
-    "thumbtack-reviews-api-openapi.yml",
-    "thumbtack-testing-api-openapi.yml"
+    "_original/thumbtack-demand-openapi.yml",
+    "_original/thumbtack-pro-openapi.yml"
   ],
   "outputs": [
-    "thumbtack-authentication-api-openapi.yml",
     "thumbtack-autocomplete-api-openapi.yml",
     "thumbtack-categories-api-openapi.yml",
+    "thumbtack-orders-api-openapi.yml",
+    "thumbtack-pros-api-openapi.yml",
+    "thumbtack-authentication-api-openapi.yml",
     "thumbtack-leads-api-openapi.yml",
     "thumbtack-messages-api-openapi.yml",
-    "thumbtack-orders-api-openapi.yml",
     "thumbtack-pro-profiles-api-openapi.yml",
-    "thumbtack-pros-api-openapi.yml",
     "thumbtack-reviews-api-openapi.yml",
     "thumbtack-testing-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "thumbtack-demand-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "thumbtack-demand-openapi.yml: declared missing tag: Autocomplete",
+    "thumbtack-demand-openapi.yml: declared missing tag: Categories",
+    "thumbtack-demand-openapi.yml: declared missing tag: Orders",
+    "thumbtack-demand-openapi.yml: declared missing tag: Pros",
+    "thumbtack-pro-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "thumbtack-pro-openapi.yml: declared missing tag: Authentication",
+    "thumbtack-pro-openapi.yml: declared missing tag: Leads",
+    "thumbtack-pro-openapi.yml: declared missing tag: Messages",
+    "thumbtack-pro-openapi.yml: declared missing tag: Pro Profiles",
+    "thumbtack-pro-openapi.yml: declared missing tag: Reviews",
+    "thumbtack-pro-openapi.yml: declared missing tag: Testing"
+  ],
+  "skipped": [
+    "thumbtack-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thumbtack-autocomplete-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thumbtack-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thumbtack-leads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thumbtack-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thumbtack-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thumbtack-pro-profiles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thumbtack-pros-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thumbtack-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thumbtack-testing-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,19 +1,18 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Thumbtack Demand Authentication Leads API
-  description: 'Marketplace ("Demand Partner") integration surface of the Thumbtack Partner Platform, for helping customers find pros, explore service categories, and submit project requests. Access is approval-gated - Thumbtack issues credentials to accepted partners; there is no public self-serve signup. Paths and methods below are transcribed from Thumbtack''s published API reference at api.thumbtack.com/docs and developers.thumbtack.com. Full request/response field schemas were not published in the sourced pages, so this document models confirmed operations at a summary level rather than fabricating complete schemas. Autocomplete, Pros, and Categories paths are verbatim-confirmed from the source reference. Orders paths are honestly modeled (x-endpointsModeled: true) from the reference''s prose description of "order management endpoints for on-demand services (create, update, cancel, retrieve status)", which did not itself publish exact path strings.'
+  title: Thumbtack Pro Leads API
+  description: Supply-side ("Supply Partner") integration surface of the Thumbtack Partner Platform, letting business-workflow platforms manage a pro's Thumbtack leads and messages alongside their other customer communications. Launched 2021 with inaugural partner GoSite. Access is approval-gated - Thumbtack issues OAuth 2.0 credentials to accepted partners; there is no public self-serve signup. All paths, methods, and the OAuth 2.0 authorization-code flow below are transcribed from Thumbtack's published API reference at pro-api.thumbtack.com/docs and developers.thumbtack.com. Full request/response field schemas were not published in the sourced pages, so this document models confirmed operations at a summary level rather than fabricating complete schemas. This spec covers two directions - "Thumbtack endpoints" called by the partner, and "Partner endpoints" that Thumbtack calls at the partner's own domain (documented here as x-partner-implemented webhook-style operations for completeness).
   termsOfService: https://www.thumbtack.com/terms
   contact:
     name: Thumbtack Partner Platform
     url: https://developers.thumbtack.com/
-  version: 4.0.0-draft
+  version: '2.0'
 servers:
-- url: https://api.thumbtack.com
+- url: https://pro-api.thumbtack.com
   description: Production
-- url: https://staging-api.thumbtack.com
+- url: https://staging-pro-api.thumbtack.com
   description: Staging
 security:
-- basicAuth: []
 - oauth2: []
 tags:
 - name: Leads
@@ -55,14 +54,6 @@ paths:
           description: Lead update accepted
 components:
   schemas:
-    LeadWebhookPayload:
-      type: object
-      description: Schema summarized; full field list not published in sourced docs.
-      properties:
-        lead_id:
-          type: string
-        business_id:
-          type: string
     LeadUpdateWebhookPayload:
       type: object
       description: Schema summarized; full field list not published in sourced docs.
@@ -71,22 +62,27 @@ components:
           type: string
         status:
           type: string
+    LeadWebhookPayload:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        lead_id:
+          type: string
+        business_id:
+          type: string
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
-      description: Used by legacy v1/v2 routes.
+      description: Used by legacy v1/v2 routes such as disconnect-partner and test utilities.
     oauth2:
       type: oauth2
-      description: Used by v4 routes. Authorization Code and Client Credentials flows.
+      description: Bearer token obtained via the partner-connect authorization code flow.
       flows:
         authorizationCode:
           authorizationUrl: https://www.thumbtack.com/services/partner-connect/
-          tokenUrl: https://api.thumbtack.com/v4/oauth/token
-          scopes: {}
-        clientCredentials:
-          tokenUrl: https://api.thumbtack.com/v4/oauth/token
+          tokenUrl: https://pro-api.thumbtack.com/v2/tokens/access
           scopes: {}
 externalDocs:
-  description: Thumbtack Demand API reference
-  url: https://api.thumbtack.com/docs/demand_api.html
+  description: Thumbtack Pro API reference
+  url: https://pro-api.thumbtack.com/docs/
