@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Thumbtack Pro Reviews API
-  description: Supply-side ("Supply Partner") integration surface of the Thumbtack Partner Platform, letting business-workflow platforms manage a pro's Thumbtack leads and messages alongside their other customer communications. Launched 2021 with inaugural partner GoSite. Access is approval-gated - Thumbtack issues OAuth 2.0 credentials to accepted partners; there is no public self-serve signup. All paths, methods, and the OAuth 2.0 authorization-code flow below are transcribed from Thumbtack's published API reference at pro-api.thumbtack.com/docs and developers.thumbtack.com. Full request/response field schemas were not published in the sourced pages, so this document models confirmed operations at a summary level rather than fabricating complete schemas. This spec covers two directions - "Thumbtack endpoints" called by the partner, and "Partner endpoints" that Thumbtack calls at the partner's own domain (documented here as x-partner-implemented webhook-style operations for completeness).
+  description: Supply-side ("Supply Partner") integration surface of the Thumbtack Partner Platform, letting business-workflow platforms manage a pro's Thumbtack leads and messages alongside their other customer communications.
   termsOfService: https://www.thumbtack.com/terms
   contact:
     name: Thumbtack Partner Platform

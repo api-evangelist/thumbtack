@@ -32,7 +32,8 @@
     "thumbtack-pro-openapi.yml: declared missing tag: Messages",
     "thumbtack-pro-openapi.yml: declared missing tag: Pro Profiles",
     "thumbtack-pro-openapi.yml: declared missing tag: Reviews",
-    "thumbtack-pro-openapi.yml: declared missing tag: Testing"
+    "thumbtack-pro-openapi.yml: declared missing tag: Testing",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "thumbtack-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
