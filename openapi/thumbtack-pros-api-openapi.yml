@@ -69,14 +69,6 @@ paths:
                 $ref: '#/components/schemas/ProsResponse'
 components:
   schemas:
-    ProsResponse:
-      type: object
-      description: Schema summarized; full field list not published in sourced docs.
-      properties:
-        pros:
-          type: array
-          items:
-            type: object
     FilteredProsRequest:
       type: object
       description: Schema summarized; full field list not published in sourced docs.
@@ -85,6 +77,14 @@ components:
           type: string
         project_metadata:
           type: object
+    ProsResponse:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        pros:
+          type: array
+          items:
+            type: object
   securitySchemes:
     basicAuth:
       type: http
