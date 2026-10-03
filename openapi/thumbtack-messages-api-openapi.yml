@@ -64,18 +64,18 @@ paths:
           description: Message accepted
 components:
   schemas:
-    MessageRequest:
-      type: object
-      description: Schema summarized; full field list not published in sourced docs.
-      properties:
-        text:
-          type: string
     MessageWebhookPayload:
       type: object
       description: Schema summarized; full field list not published in sourced docs.
       properties:
         lead_id:
           type: string
+        text:
+          type: string
+    MessageRequest:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
         text:
           type: string
   securitySchemes:

@@ -106,18 +106,18 @@ paths:
           description: Category targeting preferences updated
 components:
   schemas:
-    TargetingPreferencesRequest:
-      type: object
-      description: Schema summarized; full field list not published in sourced docs.
-      properties:
-        enabled:
-          type: boolean
     ThumbtackInfoResponse:
       type: object
       description: Schema summarized; full field list not published in sourced docs.
       properties:
         business_id:
           type: string
+    TargetingPreferencesRequest:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        enabled:
+          type: boolean
   securitySchemes:
     basicAuth:
       type: http
