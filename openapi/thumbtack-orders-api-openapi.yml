@@ -125,14 +125,6 @@ paths:
           description: Order canceled
 components:
   schemas:
-    OrderResponse:
-      type: object
-      description: Schema summarized; full field list not published in sourced docs.
-      properties:
-        order_id:
-          type: string
-        status:
-          type: string
     OrderRequest:
       type: object
       description: Schema summarized; full field list not published in sourced docs.
@@ -140,6 +132,14 @@ components:
         category_id:
           type: string
         zip_code:
+          type: string
+    OrderResponse:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        order_id:
+          type: string
+        status:
           type: string
   securitySchemes:
     basicAuth:
