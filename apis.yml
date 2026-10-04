@@ -252,6 +252,9 @@ apis:
   - type: APIReference
     url: https://pro-api.thumbtack.com/docs/
 common:
+- type: CapabilityMap
+  url: capabilities/thumbtack-capability-edges.yml
+  name: Thumbtack Business Capability Map
 - type: AgenticAccess
   url: agentic-access/thumbtack-agentic-access.yml
 - type: VulnerabilityDisclosure
