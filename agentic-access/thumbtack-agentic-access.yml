@@ -1,43 +1,26 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/thumbtack-demand-openapi.yml, openapi/thumbtack-pro-openapi.yml
+source: openapi/thumbtack-authentication-api-openapi.yml, openapi/thumbtack-autocomplete-api-openapi.yml,
+  openapi/thumbtack-categories-api-openapi.yml, openapi/thumbtack-leads-api-openapi.yml, openapi/thumbtack-messages-api-openapi.yml,
+  openapi/thumbtack-orders-api-openapi.yml, openapi/thumbtack-pro-profiles-api-openapi.yml,
+  openapi/thumbtack-pros-api-openapi.yml, openapi/thumbtack-reviews-api-openapi.yml, openapi/thumbtack-testing-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 21
   by_action_class:
-    connected: 7
-    acting: 14
+    acting: 13
+    connected: 8
   by_consequence:
-    read: 7
-    write: 10
+    write: 9
+    read: 8
     physical: 4
   human_in_the_loop_required: 0
 operations:
-- path: /v2/autocomplete
-  method: get
-  operationId: getAutocomplete
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/pros
-  method: get
-  operationId: getPros
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/filtered-pros
+- path: /v2/tokens/access
   method: post
-  operationId: getFilteredPros
+  operationId: exchangeToken
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -51,6 +34,16 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /v2/autocomplete
+  method: get
+  operationId: getAutocomplete
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /v2/homecare/checklist
   method: get
   operationId: getHomecareChecklist
@@ -71,6 +64,72 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /v1/lead
+  method: post
+  operationId: receiveLead
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/lead/update
+  method: put
+  operationId: receiveLeadUpdate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/business/{businessID}/lead/{leadID}/message
+  method: post
+  operationId: sendLeadMessage
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/message
+  method: post
+  operationId: receiveMessage
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /v4/orders
   method: post
   operationId: createOrder
@@ -145,40 +204,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/tokens/access
-  method: post
-  operationId: exchangeToken
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/business/{businessID}/lead/{leadID}/message
-  method: post
-  operationId: sendLeadMessage
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /v2/get-thumbtack-info
   method: get
   operationId: getThumbtackInfo
@@ -237,73 +262,45 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/test/create-lead
+- path: /v2/pros
+  method: get
+  operationId: getPros
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/filtered-pros
   method: post
-  operationId: createTestLead
+  operationId: getFilteredPros
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/lead
-  method: post
-  operationId: receiveLead
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/message
-  method: post
-  operationId: receiveMessage
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/lead/update
-  method: put
-  operationId: receiveLeadUpdate
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /v1/review
   method: post
   operationId: receiveReview
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/test/create-lead
+  method: post
+  operationId: createTestLead
   x-agentic-access:
     action-class: acting
     consequence: write
