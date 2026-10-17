@@ -54,14 +54,6 @@ paths:
           description: Lead update accepted
 components:
   schemas:
-    LeadUpdateWebhookPayload:
-      type: object
-      description: Schema summarized; full field list not published in sourced docs.
-      properties:
-        lead_id:
-          type: string
-        status:
-          type: string
     LeadWebhookPayload:
       type: object
       description: Schema summarized; full field list not published in sourced docs.
@@ -69,6 +61,14 @@ components:
         lead_id:
           type: string
         business_id:
+          type: string
+    LeadUpdateWebhookPayload:
+      type: object
+      description: Schema summarized; full field list not published in sourced docs.
+      properties:
+        lead_id:
+          type: string
+        status:
           type: string
   securitySchemes:
     basicAuth:
